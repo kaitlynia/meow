@@ -4,7 +4,7 @@ require "input"
 function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest", 0)
     love.window.updateMode(640, 360, { fullscreen = false, resizable = true })
-    font = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16)
+    local font = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16)
     love.graphics.setFont(font)
 
     rainbow_shader = love.graphics.newShader [[
@@ -32,7 +32,7 @@ end
 local t = 0
 function love.update(dt)
     if MouseWheelMovement ~= 0 then
-        Player.MoveHotbar(MouseWheelMovement)
+        Player.MoveHotbar(-MouseWheelMovement)
         MouseWheelMovement = 0
     end
 
@@ -45,11 +45,11 @@ function love.update(dt)
     rainbow_shader:send("time", t)
 end
 
-function isWindowValidRatio()
+local function isWindowValidRatio()
     return love.graphics.getHeight() / love.graphics.getWidth() == 360 / 640
 end
 
-function printBorder(text, x, y, forecolor, backcolor)
+local function printBorder(text, x, y, forecolor, backcolor)
     if forecolor == nil then
         forecolor = { 1, 1, 1 }
     end
