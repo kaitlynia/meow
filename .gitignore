@@ -1,6 +1,6 @@
 # Project-specific files
 .vscode
-.idea
+.idea/
 
 # Compiled Lua sources
 luac.out
