@@ -1,3 +1,6 @@
+# Project-specific files
+.vscode
+
 # Compiled Lua sources
 luac.out
 
