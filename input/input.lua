@@ -1,5 +1,5 @@
 require "constants"
-require "Player"
+require "entity.player.player"
 
 Input = {
     up = false,

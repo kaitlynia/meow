@@ -1,9 +1,9 @@
 require "constants"
-require "input"
-require "gui"
-require "camera"
-require "Player"
-require "World"
+require "input.input"
+require "rendering.gui"
+require "rendering.camera"
+require "entity.player.player"
+require "world.World"
 
 world = World()
 player = Player(world)

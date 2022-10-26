@@ -1,6 +1,6 @@
 require "class"
 require "constants"
-require "Inventory"
+require "entity.player.Inventory"
 
 Player = class(
   function(self, world, name, health, hotbar_index, inventory, x, y, vx, vy)
