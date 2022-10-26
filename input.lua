@@ -1,5 +1,5 @@
 require "constants"
-require "player"
+require "Player"
 
 Input = {
   up = false,
@@ -45,7 +45,7 @@ function love.keypressed(key, scancode, isrepeat)
   if not isrepeat then
     local index = tonumber(key)
     if index ~= nil and index > 0 and index <= Constants.MAX_HOTBAR_INDEX then
-      Player.SetHotbar(index)
+      player:setHotbarIndex(index)
     else
       Action(key, true)
     end

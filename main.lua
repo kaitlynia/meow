@@ -1,6 +1,11 @@
 require "constants"
 require "input"
 require "gui"
+require "Player"
+require "World"
+
+world = World()
+player = Player(world)
 
 function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest", 0)
@@ -33,7 +38,7 @@ end
 local t = 0
 function love.update(dt)
     if MouseWheelMovement ~= 0 then
-        Player.MoveHotbar(-MouseWheelMovement)
+        player:moveHotbarIndex(-MouseWheelMovement)
         MouseWheelMovement = 0
     end
 
@@ -47,5 +52,5 @@ function love.update(dt)
 end
 
 function love.draw()
-    drawGui()
+    drawGui(player)
 end
