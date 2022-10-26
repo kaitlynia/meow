@@ -1,6 +1,6 @@
 camera = {}
-camera.x = 0 - love.graphics.getWidth() / 2 / (love.graphics.getWidth() / 640)
-camera.y = 0 - love.graphics.getHeight() / 2 / (love.graphics.getHeight() / 360)
+camera.x = 0
+camera.y = 0
 camera.zoom = 1
 
 function camera:set()
@@ -11,6 +11,7 @@ function camera:set()
     love.graphics.scale(1 / self.zoom, 1 / self.zoom)
     love.graphics.translate(-self.x, -self.y)
     love.graphics.translate(-cameraOx, -cameraOy)
+    love.graphics.translate(cameraOx, cameraOy)
 end
 
 function camera:unset()
@@ -29,6 +30,10 @@ end
 
 function camera:setZoom(z)
     self.zoom = z
+end
+
+function camera:getZoom()
+    return self.zoom
 end
 
 function camera:getX()
