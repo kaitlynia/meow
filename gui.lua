@@ -55,13 +55,15 @@ function drawDebug()
     else
         printBorder(love.graphics.getWidth() .. " * " .. love.graphics.getHeight(), 16, 16, { 1, 0, 0 })
     end
-    printBorder("hotbar: " .. player.hotbar_index, 16, 36)
+    printBorder("drawcalls: " .. love.graphics.getStats().drawcalls, 16, 16 * 2)
+    printBorder("t-mem: " .. string.format("%.2f MB", love.graphics.getStats().texturememory / 1024 / 1024), 16, 16 * 3)
+    printBorder("hotbar: " .. player.hotbar_index, 16, 16 * 4)
     local font = love.graphics.getFont()
     --printBorder("xD", window_width / 2 - font:getWidth("xD") / 2, window_height / 2 - font:getHeight() / 2, { 1.0 + math.sin(t) / 2.0, math.abs(math.cos(t)), math.abs(math.sin(t)) })
     local step = 48
     for i, v in pairs(Input) do
         step = step + 20
-        printBorder(i .. ": " .. tostring(v), 16, step)
+        printBorder(string.format("%-10s-%8s", i, tostring(v)), 16, step + 42)
     end
 
 end

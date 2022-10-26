@@ -14,6 +14,7 @@ function love.load()
     love.mouse.setVisible(false)
     local font = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16)
     love.graphics.setFont(font)
+    love.graphics.setWireframe(false)
 
     rainbow_shader = love.graphics.newShader [[
         extern number time;
@@ -75,7 +76,14 @@ function love.draw()
     camera:set()
     for i = -5, 4 do
         --World Drawing
-        drawPanel(300 - 32, 300 - 32, 64, 16, 2)
+        drawPanel(0 - 32, -100, 64, 64, 0)
+        printBorder("<X-   X+>", 0 - love.graphics.getFont():getWidth("<X-   X+>") / 2, -100 + 32 - love.graphics.getFont():getHeight("<X-   X+>") / 2 )
+        love.graphics.push()
+        love.graphics.translate(0, -100)
+        love.graphics.rotate(math.rad(90))
+        love.graphics.translate(0, 100)
+        printBorder("<Y-   Y+>", 32 - love.graphics.getFont():getWidth("<Y-   Y+>") / 2, -100 - love.graphics.getFont():getHeight("<Y-   Y+>") / 2)
+        love.graphics.pop()
         drawPanel(32 * i, -15, 30, 30, 0)
     end
     camera:unset()
