@@ -51,6 +51,15 @@ function love.keypressed(key, scancode, isrepeat)
         else
             Action(key, true)
         end
+
+        --moved here so its not called every frame
+        --Toggle fullscreen
+        if Input["menu"] and Input["dash"] then
+            love.window.setFullscreen(not love.window.getFullscreen())
+        elseif Input["menu"] then
+            --Toggle debug
+            ShowDebug = not ShowDebug
+        end
     end
 end
 

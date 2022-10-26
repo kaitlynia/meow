@@ -1,6 +1,8 @@
 require "renderutil"
 require "input"
 
+ShowDebug = true
+
 function setupGuiScale()
     love.graphics.push()
     scalew = love.graphics.getWidth() / 640
@@ -12,7 +14,9 @@ end
 
 function drawGui()
     drawHotbar()
-    drawDebug()
+    if ShowDebug then
+        drawDebug()
+    end
     love.graphics.pop()
     drawCursor()
 end

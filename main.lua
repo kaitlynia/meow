@@ -11,7 +11,7 @@ player = Player(world)
 function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest", 0)
     love.window.updateMode(640, 360, { fullscreen = false, resizable = true, vsync = false })
-    --love.mouse.setVisible(false)
+    love.mouse.setVisible(false)
     local font = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16)
     love.graphics.setFont(font)
 
@@ -42,11 +42,6 @@ function love.update(dt)
     if MouseWheelMovement ~= 0 then
         player:moveHotbarIndex(-MouseWheelMovement)
         MouseWheelMovement = 0
-    end
-
-    --Toggle fullscreen
-    if Input["menu"] and Input["dash"] then
-        love.window.setFullscreen(not love.window.getFullscreen())
     end
 
     --Camera movement
