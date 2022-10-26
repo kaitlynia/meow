@@ -4,8 +4,8 @@ camera.y = 0
 camera.zoom = 1
 
 function camera:set()
-    local cameraOx = love.graphics.getWidth() / 2 / (love.graphics.getWidth() / 640)
-    local cameraOy = love.graphics.getHeight() / 2 / (love.graphics.getHeight() / 360)
+    local cameraOx = love.graphics.getWidth() / 2 / (love.graphics.getWidth() / PixelResX)
+    local cameraOy = love.graphics.getHeight() / 2 / (love.graphics.getHeight() / PixelResY)
     love.graphics.push()
     love.graphics.translate(cameraOx, cameraOy)
     love.graphics.scale(1 / self.zoom, 1 / self.zoom)

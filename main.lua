@@ -1,16 +1,16 @@
 require "constants"
 require "input.input"
-require "rendering.gui"
 require "rendering.camera"
 require "entity.player.player"
 require "world.World"
+require "rendering.renderer"
 
 world = World()
 player = Player(world)
 
 function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest", 0)
-    love.window.updateMode(640, 360, { fullscreen = false, resizable = true, vsync = false })
+    love.window.updateMode(PixelResX, PixelResY, { fullscreen = false, resizable = true, vsync = false })
     love.mouse.setVisible(false)
     local font = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16)
     love.graphics.setFont(font)
@@ -30,12 +30,7 @@ function love.load()
     --bg:setWrap("repeat", "clampzero", "clampzero");
     --kitty = love.graphics.newImage("data/textures/kitty.png")
 
-
-    tilemap_textures = love.graphics.newImage("data/textures/tilemap.png")
-    tilemap_batch = love.graphics.newSpriteBatch(tilemap_textures)
-
-    gui_textures = love.graphics.newImage("data/textures/gui.png")
-    gui_batch = love.graphics.newSpriteBatch(gui_textures)
+    loadTextures()
 end
 
 local t = 0
@@ -68,24 +63,4 @@ function love.update(dt)
 
     t = t + dt
     rainbow_shader:send("time", t)
-end
-
-function love.draw()
-    setupGuiScale()
-    drawBackground()
-    camera:set()
-    for i = -5, 4 do
-        --World Drawing
-        drawPanel(0 - 32, -100, 64, 64, 0)
-        printBorder("<X-   X+>", 0 - love.graphics.getFont():getWidth("<X-   X+>") / 2, -100 + 32 - love.graphics.getFont():getHeight("<X-   X+>") / 2 )
-        love.graphics.push()
-        love.graphics.translate(0, -100)
-        love.graphics.rotate(math.rad(90))
-        love.graphics.translate(0, 100)
-        printBorder("<Y-   Y+>", 32 - love.graphics.getFont():getWidth("<Y-   Y+>") / 2, -100 - love.graphics.getFont():getHeight("<Y-   Y+>") / 2)
-        love.graphics.pop()
-        drawPanel(32 * i, -15, 30, 30, 0)
-    end
-    camera:unset()
-    drawGui(player)
 end

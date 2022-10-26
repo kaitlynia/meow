@@ -56,6 +56,7 @@ function love.keypressed(key, scancode, isrepeat)
         --Toggle fullscreen
         if Input["menu"] and Input["dash"] then
             love.window.setFullscreen(not love.window.getFullscreen())
+            updatePixelScaling()
         elseif Input["menu"] then
             --Toggle debug
             ShowDebug = not ShowDebug

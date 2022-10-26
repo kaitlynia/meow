@@ -50,16 +50,12 @@ function drawPanel(x, y, w, h, ti)
 end
 
 function isWindowValidRatio()
-    return love.graphics.getHeight() / love.graphics.getWidth() == 360 / 640
+    return love.graphics.getHeight() / love.graphics.getWidth() == PixelResY / PixelResX
 end
 
 function mousePosToWorldPos(mouseX, mouseY, camera)
-    local scalew = love.graphics.getWidth() / 640
-    local scaleh = love.graphics.getHeight() / 360
-    local window_width = love.graphics.getWidth() / scalew
-    local window_height = love.graphics.getHeight() / scaleh
     local worldPos = {}
-    worldPos.x = camera:getX() + ((mouseX / scalew - window_width / 2) * camera:getZoom())
-    worldPos.y = camera:getY() + ((mouseY / scaleh - window_height / 2) * camera:getZoom())
+    worldPos.x = camera:getX() + ((mouseX / PixelScaleX - ScaledWindowWidth / 2) * camera:getZoom())
+    worldPos.y = camera:getY() + ((mouseY / PixelScaleY - ScaledWindowHeight / 2) * camera:getZoom())
     return worldPos
 end
