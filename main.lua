@@ -1,6 +1,7 @@
 require "constants"
 require "input"
 require "gui"
+require "camera"
 require "Player"
 require "World"
 
@@ -10,6 +11,7 @@ player = Player(world)
 function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest", 0)
     love.window.updateMode(640, 360, { fullscreen = false, resizable = true })
+    love.mouse.setVisible(false)
     local font = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16)
     love.graphics.setFont(font)
 
@@ -43,14 +45,42 @@ function love.update(dt)
     end
 
     --Toggle fullscreen
-    if Input["menu"] == true and Input["dash"] == true then
+    if Input["menu"] and Input["dash"] then
         love.window.setFullscreen(not love.window.getFullscreen())
     end
+
+    --Camera movement
+    local x, y = 0
+    local s = camera.zoom
+    if Input["left"] then
+        x = -1
+    elseif Input["right"] then
+        x = 1
+    end
+    if Input["up"] then
+        y = -1
+    elseif Input["down"] then
+        y = 1
+    end
+    if Input["inventory"] then
+        s = s * 0.99
+    elseif Input["drop"] then
+        s = s * 1.01
+    end
+    camera:move(x, y)
+    camera:setZoom(s)
 
     t = t + dt
     rainbow_shader:send("time", t)
 end
 
 function love.draw()
+    setupGuiScale()
+    drawBackground()
+    camera:set()
+    for i = -5, 4 do
+        drawPanel(32 * i, -15, 30, 30, 0)
+    end
+    camera:unset()
     drawGui(player)
 end

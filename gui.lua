@@ -1,22 +1,34 @@
 require "renderutil"
 
-function drawGui(player)
+function setupGuiScale()
+    love.graphics.push()
     scalew = love.graphics.getWidth() / 640
     scaleh = love.graphics.getHeight() / 360
     love.graphics.scale(scalew, scaleh)
     window_width = love.graphics.getWidth() / scalew
     window_height = love.graphics.getHeight() / scaleh
+end
 
-    --Test panel
-    --drawPanel(200, 200, 30, 30, 0)
+function drawGui()
+    drawHotbar()
+    drawDebug()
+    love.graphics.pop()
+    drawCursor()
+end
 
-    drawBackground()
-    drawDebug(player)
-    drawHotbar(player)
+function drawCursor()
+    gui_batch:clear()
+    local cursor = love.graphics.newQuad(16, 48, 16, 16, gui_textures:getDimensions())
+    gui_batch:add(cursor, love.mouse.getX() - 1, love.mouse.getY() - 1)
+    love.graphics.draw(gui_batch)
+    if Input["dash"] or true then
+        printBorder(camera:getX() + love.mouse.getX() .. ":" .. camera:getY() + love.mouse.getY(), love.mouse.getX(), love.mouse.getY()  + 16)
+    end
 end
 
 function drawBackground()
     tilemap_batch:clear()
+    love.graphics.setColor({ 1, 1, 1, 0.5 })
     local bg = love.graphics.newQuad(0, 32, 16, 16, tilemap_textures:getDimensions())
     for bx = 0, window_width / 16 do
         for by = 0, window_height / 16 do
@@ -24,9 +36,10 @@ function drawBackground()
         end
     end
     love.graphics.draw(tilemap_batch)
+    love.graphics.setColor({ 1, 1, 1, 1 })
 end
 
-function drawDebug(player)
+function drawDebug()
     love.graphics.setColor({ 0, 0, 0, 0.5 })
     love.graphics.rectangle("fill", 8, 8, 128, window_height - 16)
     love.graphics.setColor({ 1, 1, 1, 1 })
@@ -43,9 +56,10 @@ function drawDebug(player)
         step = step + 20
         printBorder(i .. ": " .. tostring(v), 16, step)
     end
+
 end
 
-function drawHotbar(player)
+function drawHotbar()
     love.graphics.setColor({ 1, 1, 1, 0.9 })
     gui_batch:clear()
     local hotbar_unselected = love.graphics.newQuad(0, 0, 18, 18, gui_textures:getDimensions())
