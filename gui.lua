@@ -27,8 +27,9 @@ function drawCursor()
     gui_batch:add(cursor, MouseX - 1, MouseY - 1)
     love.graphics.draw(gui_batch)
     if Input["dash"] or true then
-        --printBorder(camera:getX() + MouseX .. ":" .. camera:getY() + MouseY, MouseX, MouseY + 16)
-        printBorder(camera:getX() .. ":" .. camera:getY(), MouseX, MouseY + 16)
+        local worldpos = mousePosToWorldPos(MouseX, MouseY, camera)
+        printBorder(worldpos.x .. ":" .. worldpos.y, MouseX, MouseY + 16)
+        printBorder(camera:getX() .. ":" .. camera:getY(), MouseX, MouseY + 32)
     end
 end
 

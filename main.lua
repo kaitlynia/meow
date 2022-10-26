@@ -74,6 +74,8 @@ function love.draw()
     drawBackground()
     camera:set()
     for i = -5, 4 do
+        --World Drawing
+        drawPanel(300 - 32, 300 - 32, 64, 16, 2)
         drawPanel(32 * i, -15, 30, 30, 0)
     end
     camera:unset()
