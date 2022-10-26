@@ -1,4 +1,5 @@
 require "renderutil"
+require "input"
 
 function setupGuiScale()
     love.graphics.push()
@@ -19,10 +20,10 @@ end
 function drawCursor()
     gui_batch:clear()
     local cursor = love.graphics.newQuad(16, 48, 16, 16, gui_textures:getDimensions())
-    gui_batch:add(cursor, love.mouse.getX() - 1, love.mouse.getY() - 1)
+    gui_batch:add(cursor, MouseX - 1, MouseY - 1)
     love.graphics.draw(gui_batch)
     if Input["dash"] or true then
-        printBorder(camera:getX() + love.mouse.getX() .. ":" .. camera:getY() + love.mouse.getY(), love.mouse.getX(), love.mouse.getY()  + 16)
+        printBorder(camera:getX() + MouseX .. ":" .. camera:getY() + MouseY, MouseX, MouseY + 16)
     end
 end
 

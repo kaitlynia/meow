@@ -10,8 +10,8 @@ player = Player(world)
 
 function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest", 0)
-    love.window.updateMode(640, 360, { fullscreen = false, resizable = true })
-    love.mouse.setVisible(false)
+    love.window.updateMode(640, 360, { fullscreen = false, resizable = true, vsync = false })
+    --love.mouse.setVisible(false)
     local font = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16)
     love.graphics.setFont(font)
 
