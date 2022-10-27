@@ -15,7 +15,7 @@ love.mouse.setVisible(false)
 love.graphics.setFont(love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16))
 love.graphics.setWireframe(false)
 
-examplep = Panel(-32, -100, 64, 64, 0)
+examplep = Panel(-32, -100, 64, 64, 3)
 
 function setupRendering()
     --Shaders
