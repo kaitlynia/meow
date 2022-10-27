@@ -26,9 +26,9 @@ end
 function drawBackground()
     tilemap_batch:clear()
     love.graphics.setColor({ 1, 1, 1, 0.5 })
-    for bx = 0, ScaledWindowWidth / 16 do
-        for by = 0, ScaledWindowHeight / 16 do
-            tilemap_batch:add(QuadBackgroundTile, bx * 16, by * 16, 0, 1, 1, 8, 8)
+    for bx = -16, ScaledWindowWidth / 16 + 16 do
+        for by = -16, ScaledWindowHeight / 16 + 16 do
+            tilemap_batch:add(QuadBackgroundTile, bx * 16 - camera:getX() % 16, by * 16 - camera:getY() % 16, 0, 1, 1, 8, 8)
         end
     end
     love.graphics.draw(tilemap_batch)
