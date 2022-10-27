@@ -49,13 +49,47 @@ function drawPanel(x, y, w, h, ti)
     love.graphics.draw(gui_batch)
 end
 
+function isOnScreen(oX, oY, oW, oH, camera)
+    local s = worldPosToScreenPos(oX, oY, camera)
+    local e = worldPosToScreenPos(oW, oH, camera)
+    fx = false
+    fy = false
+
+    for x = s.x, e.x do
+        if x >= 0 and x <= love.graphics.getWidth() then
+            fx = true
+            break
+        end
+    end
+
+    for y = s.y, e.y do
+        if y >= 0 and y <= love.graphics.getHeight() then
+            fy = true
+            break
+        end
+    end
+
+    if fx and fy then
+        return true
+    end
+
+    return false
+end
+
 function isWindowValidRatio()
     return love.graphics.getHeight() / love.graphics.getWidth() == PixelResY / PixelResX
 end
 
-function mousePosToWorldPos(mouseX, mouseY, camera)
+function screenPosToWorldPos(x, y, camera)
     local worldPos = {}
-    worldPos.x = camera:getX() + ((mouseX / PixelScaleX - ScaledWindowWidth / 2) * camera:getZoom())
-    worldPos.y = camera:getY() + ((mouseY / PixelScaleY - ScaledWindowHeight / 2) * camera:getZoom())
+    worldPos.x = camera:getX() + ((x / PixelScaleX - ScaledWindowWidth / 2) * camera:getZoom())
+    worldPos.y = camera:getY() + ((y / PixelScaleY - ScaledWindowHeight / 2) * camera:getZoom())
     return worldPos
+end
+
+function worldPosToScreenPos(x, y, camera)
+    local screenPos = {}
+    screenPos.x = (((x - camera:getX()) / camera:getZoom()) + ScaledWindowWidth / 2) * PixelScaleX
+    screenPos.y = (((y - camera:getY()) / camera:getZoom()) + ScaledWindowHeight / 2) * PixelScaleY
+    return screenPos
 end

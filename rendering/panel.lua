@@ -22,6 +22,7 @@ Panel = class(
             self.panel_bl = love.graphics.newQuad(tx, ty + 3, 2, 2, self.texture:getDimensions())
             self.panel_bm = love.graphics.newQuad(tx + 2, ty + 3, 1, 2, self.texture:getDimensions())
             self.panel_br = love.graphics.newQuad(tx + 3, ty + 3, 2, 2, self.texture:getDimensions())
+            self:flush()
         end
 )
 
@@ -48,5 +49,32 @@ function Panel.flush(self)
 end
 
 function Panel.draw(self)
-    love.graphics.draw(self.batch)
+    if isOnScreen(self.x, self.y, self.x + self.w, self.y + self.h, camera) then
+        love.graphics.draw(self.batch)
+    end
+end
+
+function Panel.getPos(self)
+    return { x = self.x, y = self.y }
+end
+
+function Panel.getSize(self)
+    return { w = self.w, h = self.h }
+end
+
+function Panel.setPos(self, x, y)
+    self.x = x or self.x
+    self.y = y or self.y
+    self:flush()
+end
+
+function Panel.setSize(self, w, h)
+    self.w = w or self.w
+    self.h = h or self.h
+    self:flush()
+end
+
+function Panel.setType(self, t)
+    self.type = t
+    self:flush()
 end
