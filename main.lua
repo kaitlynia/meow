@@ -8,19 +8,25 @@ require "rendering.renderer"
 
 world = World()
 player = Player(world)
-PhysicalWorld = love.physics.newWorld(0, 9.81*16, true)
 
-examplep = Panel(-32, -100, 64, 64, 3)
-debugtile = Tile(0, 64, 9)
+PhysicalWorld = love.physics.newWorld(0, 9.81 * 32, true)
+
+--examplep = Panel(-32, -100, 64, 64, 3)
+heavy = Tile(PhysicalWorld, 0, 0, 25)
+bouncy = Tile(PhysicalWorld, 0, -64, 26)
 
 function love.load()
     --Physics
-    love.physics.setMeter(16)
+    love.physics.setMeter(29)
 
     setupRendering()
     --addToRenderer(examplep)
-    addToRenderer(debugtile)
-    addToRenderer(player)
+    for i = -12, 12 do
+        addToRenderer(Tile(PhysicalWorld, i * 16, 64, 24))
+    end
+    addToRenderer(heavy)
+    addToRenderer(bouncy)
+    --addToRenderer(player)
 end
 
 local t = 0
@@ -51,10 +57,13 @@ function love.update(dt)
     elseif Input["drop"] then
         s = s * 1.01
     end
+
+    bouncy.physics.body:applyForce(100 * x, 200 * y)
+
     x = x * 0.25
     y = y * 0.25
-    player:move(x, y)
-    camera:setPos(player:getPos().x, player:getPos().y)
+    --player:move(x, y)
+    --camera:setPos(player:getPos().x, player:getPos().y)
     --camera:move(x, y)
     camera:setZoom(s)
 
