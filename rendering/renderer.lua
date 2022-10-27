@@ -1,6 +1,6 @@
 require "rendering.gui"
-require "rendering.camera"
-require "rendering.panel"
+require "rendering.object.camera"
+require "rendering.object.panel"
 
 PixelResX = 640
 PixelResY = 360
@@ -15,7 +15,15 @@ love.mouse.setVisible(false)
 love.graphics.setFont(love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16))
 love.graphics.setWireframe(false)
 
-examplep = Panel(-32, -100, 64, 64, 3)
+local WorldObjects = {}
+
+function addToRenderer(drawable)
+    table.insert(WorldObjects, drawable)
+end
+
+function removeFromRenderer(drawable)
+    table.remove(WorldObjects, WorldObjects[drawable])
+end
 
 function setupRendering()
     --Shaders
@@ -31,7 +39,7 @@ function setupRendering()
 
     --bg = love.graphics.newImage("data/textures/bg_1.png")
     --bg:setWrap("repeat", "clampzero", "clampzero");
-    --kitty = love.graphics.newImage("data/textures/kitty.png")
+    kitty = love.graphics.newImage("data/textures/kitty.png")
 
     --Textures
     tilemap_textures = love.graphics.newImage("data/textures/tilemap.png")
@@ -72,19 +80,22 @@ end
 
 function drawView()
     camera:set()
-
-    examplep:draw()
-
-    printBorder("<X-   X+>", 0 - love.graphics.getFont():getWidth("<X-   X+>") / 2, -100 + 32 - love.graphics.getFont():getHeight("<X-   X+>") / 2)
-    love.graphics.push()
-    love.graphics.translate(0, -100)
-    love.graphics.rotate(math.rad(90))
-    love.graphics.translate(0, 100)
-    printBorder("<Y-   Y+>", 32 - love.graphics.getFont():getWidth("<Y-   Y+>") / 2, -100 - love.graphics.getFont():getHeight("<Y-   Y+>") / 2)
-    love.graphics.pop()
-    for i = -5, 4 do
-        drawPanel(32 * i, -15, 30, 30, 0)
+    for _, v in pairs(WorldObjects) do
+        v:draw()
     end
+
+    --printBorder("<X-   X+>", 0 - love.graphics.getFont():getWidth("<X-   X+>") / 2, -100 + 32 - love.graphics.getFont():getHeight("<X-   X+>") / 2)
+    --love.graphics.push()
+    --love.graphics.translate(0, -100)
+    --love.graphics.rotate(math.rad(90))
+    --love.graphics.translate(0, 100)
+    --printBorder("<Y-   Y+>", 32 - love.graphics.getFont():getWidth("<Y-   Y+>") / 2, -100 - love.graphics.getFont():getHeight("<Y-   Y+>") / 2)
+    --love.graphics.pop()
+    --for i = -5, 4 do
+    --    drawPanel(32 * i, 32, 30, 30, 0)
+    --end
+
+    --player:draw()
     camera:unset()
 end
 
