@@ -47,6 +47,8 @@ function drawDebug()
     printBorder("drawcalls: " .. love.graphics.getStats().drawcalls, 16, 16 * 2)
     printBorder("t-mem: " .. string.format("%.2f MB", love.graphics.getStats().texturememory / 1024 / 1024), 16, 16 * 3)
     printBorder("hotbar: " .. player.hotbar_index, 16, 16 * 4)
+    local fps = string.format("FPS: %s", love.timer.getFPS())
+    printBorder(fps, ScaledWindowWidth - love.graphics.getFont():getWidth(fps) - 2, 2)
     --local font = love.graphics.getFont()
     --printBorder("xD", window_width / 2 - font:getWidth("xD") / 2, window_height / 2 - font:getHeight() / 2, { 1.0 + math.sin(t) / 2.0, math.abs(math.cos(t)), math.abs(math.sin(t)) })
     local step = 48
