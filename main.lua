@@ -7,13 +7,13 @@ require "world.World"
 require "rendering.renderer"
 
 world = World()
-player = Player(world)
 
 PhysicalWorld = love.physics.newWorld(0, 9.81 * 32, true)
 
 --examplep = Panel(-32, -100, 64, 64, 3)
-heavy = Tile(PhysicalWorld, 0, 0, 25)
-bouncy = Tile(PhysicalWorld, 0, -64, 26)
+player = Player(world, PhysicalWorld)
+--heavy = Tile(PhysicalWorld, 0, 0, 25)
+bouncy = Tile(PhysicalWorld, 64, -64, 26)
 
 function love.load()
     --Physics
@@ -24,9 +24,9 @@ function love.load()
     for i = -12, 12 do
         addToRenderer(Tile(PhysicalWorld, i * 16, 64, 24))
     end
-    addToRenderer(heavy)
+    --addToRenderer(heavy)
     addToRenderer(bouncy)
-    --addToRenderer(player)
+    addToRenderer(player)
 end
 
 local t = 0
@@ -48,9 +48,9 @@ function love.update(dt)
         x = 1
     end
     if Input["up"] then
-        y = -1
+        --y = -1
     elseif Input["down"] then
-        y = 1
+        --y = 1
     end
     if Input["inventory"] then
         s = s * 0.99
@@ -58,12 +58,11 @@ function love.update(dt)
         s = s * 1.01
     end
 
-    bouncy.physics.body:applyForce(100 * x, 200 * y)
-
+    player.physics.body:applyForce(100 * x, 200 * y)
     x = x * 0.25
     y = y * 0.25
     --player:move(x, y)
-    --camera:setPos(player:getPos().x, player:getPos().y)
+    camera:setPos(player:getX() + 8, player:getY() + 8)
     --camera:move(x, y)
     camera:setZoom(s)
 

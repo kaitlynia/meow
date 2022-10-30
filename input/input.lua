@@ -61,6 +61,11 @@ function love.keypressed(key, scancode, isrepeat)
             --Toggle debug
             ShowDebug = not ShowDebug
         end
+
+        --todo check if on ground
+        if Input["jump"] then
+            player.physics.body:applyLinearImpulse(0, -50)
+        end
     end
 end
 
