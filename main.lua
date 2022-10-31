@@ -1,10 +1,23 @@
 require "constants"
-require "input.input"
-require "rendering.object.camera"
-require "rendering.object.tile"
+require "client.input"
+require "world.object.camera"
+require "world.object.tile"
 require "entity.player.player"
 require "world.World"
-require "rendering.renderer"
+require "client.render.renderer"
+
+--network
+--world
+    --saving loading
+    --world objects
+        --players
+        --tiles
+--client
+    --input
+    --renderer
+        --camera
+        --gui
+        --render func
 
 world = World()
 

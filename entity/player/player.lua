@@ -1,7 +1,7 @@
 require "class"
 require "constants"
 require "entity.player.Inventory"
-require "rendering.renderutil"
+require "client.render.renderutil"
 
 Player = class(
         function(self, world, phys, name, health, hotbar_index, inventory, x, y, vx, vy)

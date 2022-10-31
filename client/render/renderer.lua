@@ -1,6 +1,6 @@
-require "rendering.gui"
-require "rendering.object.camera"
-require "rendering.object.panel"
+require "client.render.gui"
+require "world.object.camera"
+require "world.object.panel"
 
 PixelResX = 640
 PixelResY = 360
@@ -83,19 +83,6 @@ function drawView()
     for _, v in pairs(WorldObjects) do
         v:draw()
     end
-
-    --printBorder("<X-   X+>", 0 - love.graphics.getFont():getWidth("<X-   X+>") / 2, -100 + 32 - love.graphics.getFont():getHeight("<X-   X+>") / 2)
-    --love.graphics.push()
-    --love.graphics.translate(0, -100)
-    --love.graphics.rotate(math.rad(90))
-    --love.graphics.translate(0, 100)
-    --printBorder("<Y-   Y+>", 32 - love.graphics.getFont():getWidth("<Y-   Y+>") / 2, -100 - love.graphics.getFont():getHeight("<Y-   Y+>") / 2)
-    --love.graphics.pop()
-    --for i = -5, 4 do
-    --    drawPanel(32 * i, 32, 30, 30, 0)
-    --end
-
-    --player:draw()
     camera:unset()
 end
 

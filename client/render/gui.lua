@@ -1,5 +1,5 @@
-require "rendering.renderutil"
-require "input.input"
+require "client.render.renderutil"
+require "client.input"
 
 ShowDebug = true
 
