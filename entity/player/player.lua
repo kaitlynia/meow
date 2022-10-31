@@ -18,8 +18,10 @@ Player = class(
             self.physics = {}
             self.physics.body = love.physics.newBody(phys, x or 0, y or 0, "dynamic")
             self.physics.body:setFixedRotation(true)
-            self.physics.shape = love.physics.newRectangleShape(self.w, self.h)
+            self.physics.shape = love.physics.newCircleShape(self.w / 2)
             self.physics.fixture = love.physics.newFixture(self.physics.body, self.physics.shape, 1)
+            self.physics.fixture:setFriction(1)
+
         end
 )
 

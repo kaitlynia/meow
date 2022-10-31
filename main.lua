@@ -71,7 +71,7 @@ function love.update(dt)
         s = s * 1.01
     end
 
-    player.physics.body:applyForce(100 * x, 200 * y)
+    player.physics.body:applyForce(50 * x, 200 * y)
     x = x * 0.25
     y = y * 0.25
     --player:move(x, y)
