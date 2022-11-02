@@ -1,6 +1,6 @@
-require "client.render.gui"
-require "world.object.camera"
-require "world.object.panel"
+require "client.gui.gui"
+require "client.camera"
+require "object.Panel"
 
 PixelResX = 640
 PixelResY = 360
@@ -12,7 +12,8 @@ ScaledWindowHeight = love.graphics.getHeight() / PixelScaleY
 love.graphics.setDefaultFilter("nearest", "nearest", 0)
 love.window.updateMode(PixelResX, PixelResY, { fullscreen = false, resizable = true, vsync = false })
 love.mouse.setVisible(false)
-love.graphics.setFont(love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16))
+GameFont = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 16)
+love.graphics.setFont(GameFont)
 love.graphics.setWireframe(false)
 
 local WorldObjects = {}
@@ -22,7 +23,9 @@ function addToRenderer(drawable)
 end
 
 function removeFromRenderer(drawable)
-    table.remove(WorldObjects, WorldObjects[drawable])
+    if WorldObjects[drawable] then
+        table.remove(WorldObjects, WorldObjects[drawable])
+    end
 end
 
 function setupRendering()
@@ -68,7 +71,7 @@ function love.draw()
     love.graphics.scale(PixelScaleX, PixelScaleY)
     drawBackground()
     drawView()
-    drawGui(player)
+    drawGui()
 end
 
 function updatePixelScaling()

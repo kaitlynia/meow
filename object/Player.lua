@@ -1,10 +1,10 @@
 require "class"
 require "constants"
-require "entity.player.Inventory"
-require "client.render.renderutil"
+require "object.Inventory"
+require "client.renderutil"
 
 Player = class(
-        function(self, world, phys, name, health, hotbar_index, inventory, x, y, vx, vy)
+        function(self, world, phys, name, x, y, health, hotbar_index, inventory, vx, vy)
             self.world = world
             self.name = name or "nameless cat"
             self.health = health or Constants.MAX_HEALTH
@@ -34,6 +34,10 @@ function Player.moveHotbarIndex(self, by)
     elseif self.hotbar_index > Constants.MAX_HOTBAR_INDEX then
         self.hotbar_index = self.hotbar_index - Constants.MAX_HOTBAR_INDEX
     end
+end
+
+function Player.getName(self)
+    return self.name
 end
 
 function Player.setHotbarIndex(self, index)
@@ -70,6 +74,14 @@ end
 --    self.y = y ~= nil and y or self.y
 --end
 
+function Player.setX(self, x)
+    self.physics.body:setX(x)
+end
+
+function Player.setY(self, y)
+    self.physics.body:setX(y)
+end
+
 function Player.getX(self)
     return self.physics.body:getX()
 end
@@ -85,6 +97,14 @@ function Player.draw(self)
         love.graphics.rotate(self.physics.body:getAngle())
         love.graphics.translate(-self:getX() - self.w / 2, -self:getY() - self.h / 2)
         love.graphics.draw(kitty, self:getX(), self:getY())
+        printBorder(self.name, self:getX() - love.graphics.getFont():getWidth(self.name) / 2 + self.w / 2, self:getY() - self.h / 2)
         love.graphics.pop()
+
+    end
+end
+
+function Player.patch(self, data)
+    for k, v in pairs(data) do
+        self[k] = v
     end
 end

@@ -1,15 +1,35 @@
-require "client.render.renderutil"
+require "client.renderutil"
 require "client.input"
+require "client.gui.hud"
 
 ShowDebug = true
+InGame = true
+local title_font = love.graphics.newFont("data/fonts/ProggyTinySZ.ttf", 64)
 
 function drawGui()
-    drawHotbar()
+    if InGame then
+        drawHotbar()
+    else
+        drawMainMenu()
+    end
+
     if ShowDebug then
         drawDebug()
     end
     love.graphics.pop()
     drawCursor()
+end
+
+function drawMainMenu()
+    love.graphics.setFont(title_font)
+    printBorder("Meow", ScaledWindowWidth / 2 - love.graphics.getFont():getWidth("Meow") / 2, 32, { 1.0 + math.sin(love.timer.getTime()) / 2.0, math.abs(math.cos(love.timer.getTime())), math.abs(math.sin(love.timer.getTime())) })
+    love.graphics.setFont(GameFont)
+    local w = 300
+
+    love.graphics.setColor({ 0, 0, 0, 0.5 })
+    love.graphics.rectangle("fill", ScaledWindowWidth / 2 - w / 2, 96, w, 200)
+    love.graphics.setColor({ 1, 1, 1, 1 })
+
 end
 
 function drawCursor()
@@ -57,20 +77,4 @@ function drawDebug()
         printBorder(string.format("%-10s-%8s", i, tostring(v)), 16, step + 42)
     end
 
-end
-
-function drawHotbar()
-    love.graphics.setColor({ 1, 1, 1, 0.9 })
-    gui_batch:clear()
-    local x = ScaledWindowWidth * 0.5 - (18 * 9) * 0.5
-    local y = ScaledWindowHeight - 18 - 9
-    for i = 0, Constants.MAX_HOTBAR_INDEX - 1 do
-        local tex = QuadHotbarUnselected
-        if i == player.hotbar_index - 1 then
-            tex = QuadHotbarSelected
-        end
-        gui_batch:add(tex, x + i * 18, y)
-    end
-    love.graphics.draw(gui_batch)
-    love.graphics.setColor({ 1, 1, 1, 1 })
 end

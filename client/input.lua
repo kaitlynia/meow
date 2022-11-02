@@ -1,5 +1,7 @@
 require "constants"
-require "entity.player.player"
+require "object.Player"
+
+Intent = false
 
 Input = {
     up = false,
@@ -50,6 +52,7 @@ function love.keypressed(key, scancode, isrepeat)
             player:setHotbarIndex(index)
         else
             Action(key, true)
+            Intent = true
         end
 
         --moved here so its not called every frame
@@ -65,25 +68,30 @@ function love.keypressed(key, scancode, isrepeat)
         --todo check if on ground
         if Input["jump"] then
             player.physics.body:applyLinearImpulse(0, -50)
+            Intent = true
         end
     end
 end
 
 function love.keyreleased(key)
     Action(key, false)
+    Intent = true
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
     Action("mouse" .. button, true)
+    Intent = true
 end
 
 function love.mousereleased(x, y, button, istouch, presses)
     Action("mouse" .. button, false)
+    Intent = true
 end
 
 function love.mousemoved(x, y, dx, dy, istouch)
     MouseX = x
     MouseY = y
+    --Intent = true
 end
 
 function love.wheelmoved(x, y)

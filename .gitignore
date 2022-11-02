@@ -1,3 +1,6 @@
+# Game managed files
+/config.json
+
 # Project-specific files
 .vscode
 .idea/
