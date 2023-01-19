@@ -1,5 +1,5 @@
 require "rendering.MainMenu"
-require "rendering.components.Panel"
+require "rendering.components.Button"
 
 PixelResX = 640
 PixelResY = 360
@@ -10,12 +10,11 @@ ScaledWindowHeight = love.graphics.getHeight() / PixelScaleY
 
 love.graphics.setDefaultFilter("nearest", "nearest", 0)
 love.window.updateMode(PixelResX, PixelResY, { fullscreen = false, resizable = true, vsync = false })
-love.mouse.setVisible(false)
+love.mouse.setVisible(true)
 GameFont = love.graphics.newFont("resource/fonts/ProggyTinySZ.ttf", 16)
 love.graphics.setFont(GameFont)
 love.graphics.setWireframe(false)
 
-Drawables = {}
 
 function setupRendering()
 	--Shaders
@@ -42,8 +41,6 @@ function setupRendering()
 	--QuadHotbarUnselected = love.graphics.newQuad(0, 0, 18, 18, gui_textures:getDimensions())
 	--QuadHotbarSelected = love.graphics.newQuad(18, 0, 18, 18, gui_textures:getDimensions())
 
-	table.insert(Drawables, Panel:new(nil, 20, 20, 60, 60, 0))
-
 	updatePixelScaling()
 end
 
@@ -54,16 +51,6 @@ function love.resize(w, h)
 	updatePixelScaling()
 end
 
-function love.draw()
-	love.graphics.push()
-	love.graphics.scale(PixelScaleX, PixelScaleY)
-
-	for _, v in pairs(Drawables) do
-		v:draw()
-	end
-
-	love.graphics.pop()
-end
 
 function updatePixelScaling()
 	PixelScaleX = love.graphics.getWidth() / PixelResX

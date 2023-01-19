@@ -1,8 +1,7 @@
-Panel = {
-}
+Panel = {}
 
-function Panel:new(o, x, y, w, h, type)
-	o = o or {}
+function Panel:new(x, y, w, h, type)
+	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 	self.x = x or 0
@@ -14,7 +13,15 @@ function Panel:new(o, x, y, w, h, type)
 	self.texture = love.graphics.newImage("resource/textures/gui.png")
 	self.sprite_batch = love.graphics.newSpriteBatch(self.texture)
 
-	local tx = 5 * self.type
+	self:setType(self.type)
+
+
+	return o
+end
+
+function Panel:setType(type)
+	self.type = type
+	local tx = 5 * type
 	local ty = 32
 	self.panel_tl = love.graphics.newQuad(tx, ty, 2, 2, self.texture:getDimensions())
 	self.panel_tm = love.graphics.newQuad(tx + 2, ty, 1, 2, self.texture:getDimensions())
@@ -25,10 +32,7 @@ function Panel:new(o, x, y, w, h, type)
 	self.panel_bl = love.graphics.newQuad(tx, ty + 3, 2, 2, self.texture:getDimensions())
 	self.panel_bm = love.graphics.newQuad(tx + 2, ty + 3, 1, 2, self.texture:getDimensions())
 	self.panel_br = love.graphics.newQuad(tx + 3, ty + 3, 2, 2, self.texture:getDimensions())
-
 	self:flush()
-
-	return o
 end
 
 function Panel:clear()

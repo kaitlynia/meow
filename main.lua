@@ -1,11 +1,29 @@
 require "rendering.Rendering"
 
-function love.load()
+Drawables = {}
 
+function love.load()
 	setupRendering()
+
+	table.insert(Drawables, Button:new(640 / 2 - 150, 360 / 2 - 40, 300, 80, 0))
+
+end
+
+function love.draw()
+	love.graphics.push()
+	love.graphics.scale(PixelScaleX, PixelScaleY)
+
+	for _, v in pairs(Drawables) do
+		v:draw()
+	end
+
+	love.graphics.pop()
 end
 
 function love.update(dt)
+	for _, v in pairs(Drawables) do
+		v:update()
+	end
 
 end
 
