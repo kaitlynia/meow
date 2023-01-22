@@ -5,8 +5,9 @@ Drawables = {}
 function love.load()
 	setupRendering()
 
-	table.insert(Drawables, Button:new(640 / 2 - 150, 360 / 2 - 40, 300, 80, 0))
+	table.insert(Drawables, Button:new("Connect", 640 / 2 - 150, 360 / 2 - 40, 300, 80, function()
 
+	end))
 end
 
 function love.draw()
