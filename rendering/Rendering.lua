@@ -1,5 +1,5 @@
 require "rendering.MainMenu"
-require "rendering.Camera"
+require "rendering.components.Button"
 
 PixelResX = 640
 PixelResY = 360
@@ -14,6 +14,7 @@ love.mouse.setVisible(true)
 GameFont = love.graphics.newFont("resource/fonts/ProggyTinySZ.ttf", 16)
 love.graphics.setFont(GameFont)
 love.graphics.setWireframe(false)
+
 
 function setupRendering()
 	--Shaders
@@ -50,19 +51,6 @@ function love.resize(w, h)
 	updatePixelScaling()
 end
 
-function screenPosToWorldPos(x, y)
-	local worldPos = {}
-	worldPos.x = camera:getX() + ((x / PixelScaleX - ScaledWindowWidth / 2) * camera:getZoom())
-	worldPos.y = camera:getY() + ((y / PixelScaleY - ScaledWindowHeight / 2) * camera:getZoom())
-	return worldPos
-end
-
-function getMousePos()
-	local mousepos = {}
-	mousepos.x = love.mouse.getX() / PixelScaleX
-	mousepos.y = love.mouse.getY() / PixelScaleY
-	return mousepos
-end
 
 function updatePixelScaling()
 	PixelScaleX = love.graphics.getWidth() / PixelResX

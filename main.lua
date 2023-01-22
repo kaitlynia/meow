@@ -1,36 +1,20 @@
 require "rendering.Rendering"
-require "config"
-require "rendering.Camera"
-require "rendering.components.Button"
 
-GuiDrawables = {}
-WorldDrawables = {}
-
-clientConfig = loadClientConfig("config.json")
-debug_isConnected = false;
+Drawables = {}
 
 function love.load()
 	setupRendering()
-	table.insert(GuiDrawables, Button:new("Connect", 10, 10, 300, 80, function()
+
+	table.insert(Drawables, Button:new("Connect", 640 / 2 - 150, 360 / 2 - 40, 300, 80, function()
 
 	end))
-
 end
-
-furnace = love.graphics.newImage("resource/textures/furnace.png")
 
 function love.draw()
 	love.graphics.push()
 	love.graphics.scale(PixelScaleX, PixelScaleY)
-	camera:set()
 
-	--Draw world stuff here
-	--love.graphics.draw(furnace,20,20)
-
-
-	camera:unset()
-
-	for _, v in pairs(GuiDrawables) do
+	for _, v in pairs(Drawables) do
 		v:draw()
 	end
 
@@ -38,9 +22,10 @@ function love.draw()
 end
 
 function love.update(dt)
-	for _, v in pairs(GuiDrawables) do
+	for _, v in pairs(Drawables) do
 		v:update()
 	end
+
 end
 
 function love.quit()
