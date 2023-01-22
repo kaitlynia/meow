@@ -19,6 +19,10 @@ function Panel:new(x, y, w, h, type)
 	return o
 end
 
+function Panel:update()
+	
+end
+
 function Panel:setType(type)
 	self.type = type
 	local tx = 5 * type
