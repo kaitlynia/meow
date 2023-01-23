@@ -4,16 +4,16 @@ function Panel:new(x, y, w, h, type)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
-	self.x = x or 0
-	self.y = y or 0
-	self.w = w or 0
-	self.h = h or 0
-	self.type = type or 0
+	o.x = x or 0
+	o.y = y or 0
+	o.w = w or 0
+	o.h = h or 0
+	o.type = type or 0
 
-	self.texture = love.graphics.newImage("resource/textures/gui.png")
-	self.sprite_batch = love.graphics.newSpriteBatch(self.texture)
+	o.texture = love.graphics.newImage("resource/textures/gui.png")
+	o.sprite_batch = love.graphics.newSpriteBatch(o.texture)
 
-	self:setType(self.type)
+	o:setType(o.type)
 
 
 	return o

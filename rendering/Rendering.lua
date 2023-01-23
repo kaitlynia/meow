@@ -57,6 +57,16 @@ function screenPosToWorldPos(x, y)
 	return worldPos
 end
 
+function isMouseInside(x, y, x2, y2)
+	local mousepos = getMousePos()
+	if mousepos.x >= x and mousepos.y >= y then
+		if mousepos.x <= x2 and mousepos.y <= y2 then
+			return true
+		end
+	end
+	return false
+end
+
 function getMousePos()
 	local mousepos = {}
 	mousepos.x = love.mouse.getX() / PixelScaleX

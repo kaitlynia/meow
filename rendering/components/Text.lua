@@ -4,20 +4,24 @@ function Text:new(text, x, y, text_color, border_color)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
-	self.text = text or ""
-	self.x = x or 0
-	self.y = y or 0
-	self.fg = text_color or { 1, 1, 1 }
-	self.bg = border_color or { 0, 0, 0 }
+	o.text = text or ""
+	o.x = x or 0
+	o.y = y or 0
+	o.fg = text_color or { 1, 1, 1 }
+	o.bg = border_color or { 0, 0, 0 }
 	return o
 end
 
-function Panel:update()
+function Text:update()
 
 end
 
 function Text:setText(text)
 	self.text = text
+end
+
+function Text:getText()
+	return self.text
 end
 
 function Text:center(x, y)
